@@ -30,6 +30,9 @@ def prime_list_test(n):
     #return len(prime_list)
     return prime_list_nums
 
+
+
+
 if __name__ == "__main__":
     num_iter = 20
     t = timeit.timeit("prime_list_test(10**6)",setup='from multithreadprime import prime_list_test',number=num_iter)
