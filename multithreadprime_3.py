@@ -85,6 +85,7 @@ if __name__ == "__main__":
         parallel_primes(end_power)
         t1 = time.time()
         t.append(t1-t0)
+        print("Done: ",t1-t0)
     print(sum(t)/len(t))
     
     
