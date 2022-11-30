@@ -83,9 +83,11 @@ if __name__ == "__main__":
     for i in range(num_iter):
         t0 = time.time()
         parallel_primes(end_power)
+        #is_prime(99194853094755497)
         t1 = time.time()
         t.append(t1-t0)
         print("Done: ",t1-t0)
+        
     print(sum(t)/len(t))
     
     
