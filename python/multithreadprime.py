@@ -29,10 +29,10 @@ def prime_list(my_list):
 def parallel_primes(end_power,stripe_power):
     stripe_size = 10**stripe_power
     total_size = 10**end_power
-    
     # build prime interval array
-    prime_range = [range(1+i*stripe_size,1+(i+1)*stripe_size) for i in range(0,int(total_size/stripe_size))]
-    
+    prime_range = [range(1+i*stripe_size,1+(i+1)*int(min(stripe_size,total_size))) 
+                   for i in range(0,int(total_size/min(stripe_size,total_size)))]
+    # The min is for the rare case where the stripe_size > total_size
 
     p = multiprocessing.Pool()    
     result = p.map(prime_list,prime_range)
@@ -43,14 +43,15 @@ def parallel_primes(end_power,stripe_power):
     return a
 
 
-def multiprime(end_power,num_iter,stripe_power):
+def multiprime(end_power,num_iter,stripe_power,debug = False):
     t = []
     for i in range(num_iter):
         t0 = time.time()
         parallel_primes(end_power,stripe_power)
         t1 = time.time()
         t.append(t1-t0)
-        print("Done: ",t1-t0)
+        if debug:
+            print("Done: ",t1-t0)
         
     t_avg = sum(t)/len(t)
     outlist = ["Python",str(end_power),str(stripe_power),str(num_iter),str(t_avg)]
@@ -74,9 +75,9 @@ def multiprime(end_power,num_iter,stripe_power):
 if __name__ == "__main__":    
 
    # Default Values
-    end_power = 7
+    end_power = 1.0
     num_iter = 5
-    stripe_power = 4
+    stripe_power = 2
     
     if len(sys.argv) == 2:
         end_power = float(sys.argv[1])
