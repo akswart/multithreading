@@ -4,6 +4,7 @@
 #include <chrono>
 #include <vector>
 #include <numeric>
+#include <fstream>
 
 using namespace std;
 /*
@@ -84,13 +85,52 @@ float benchmark1(float end_power, int num_iter) {
  
 }
 
+// Runs a series of benchmarks starting at start_power, ending at end_power
+vector<vector<string>> benchmark_series(float start_power, float end_power, float step_power,
+				int num_iter) {
+  
+  vector<vector<string>> result_vec;
+  float t_avg;
+  for (float p = start_power; p <= end_power; p += step_power) {
+    t_avg = benchmark1(p,num_iter);
+    vector<string> run_vec{"C++",to_string(p),to_string(num_iter),to_string(t_avg)};
+    result_vec.push_back(run_vec);
+    printf("Done with p: %.2f\t Time: %.4e\n",p,t_avg);
+  }
+
+  for (vector<string> i: result_vec) {
+    for (string j: i) {
+      printf("%s\t",j.c_str());
+    }
+    printf("\n");
+  }
+
+  return result_vec;
+}
+
+// Writes a vector of results to a csv file
+int write_result_vector(vector<vector<string>> result_vect,string filename) {
+
+  ofstream file;
+  file.open(filename);
+  // Setup column names
+  file << "Language,End Power,Num Iter,Average,\n";
+  for (vector<string> i: result_vect) {
+    for (string j: i) {
+      file << j << ",";
+    }
+    file << "\n";
+  }
+  file.close();
+  return 1;
+}
+
 int main() {
 
   int num_iter = 1;
   float t_avg;
-  for (float p = 6.5; p <= 7.5; p += .25) {
-    t_avg = benchmark1(p,num_iter);
-    printf("p =  %1.2f \tTime: %.3e \n",p,t_avg);
-  }
+  vector<vector<string>> outvec = benchmark_series(1,9,.1,5);
+  int status = write_result_vector(outvec,"../data/cpp_single.csv");
   return 0;
 }
+
