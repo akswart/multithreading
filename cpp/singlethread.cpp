@@ -11,10 +11,31 @@ Sieve prime checker
  */
 int isPrime(long int x)
 {
+  if (x == 2 || x == 3) {
+    return 1;
+  }
+  
+  if (x%2 == 0 || x%3 == 0) {
+    return 0;
+  }
+  
+  for (long int i = 5;i <= sqrt(x); i+=6)
+    {
+      if (x%i == 0) return 0;
+      if (x%(i+2) == 0) return 0;
+    }
+
+
+
+  return 1;
+}
+
+int isPrime2(long int x)
+{
   if (x == 2) {
     return 1;
   }
-
+  
   if (x%2 == 0) {
     return 0;
   }
@@ -23,9 +44,12 @@ int isPrime(long int x)
     {
       if (x%i == 0) return 0;
     }
-  
+
+
+
   return 1;
 }
+
 
 long int non_parallel_primes(float end_power) {
   // Make vector of increasing ints up to end_power
@@ -55,15 +79,16 @@ float benchmark1(float end_power, int num_iter) {
 
     t_sum += time_taken.count()*pow(10.0,-6);
   }
+
   return t_sum/num_iter;
  
 }
 
 int main() {
 
-  int num_iter = 50;
+  int num_iter = 1;
   float t_avg;
-  for (float p = 5; p <= 8; p += .25) {
+  for (float p = 6.5; p <= 7.5; p += .25) {
     t_avg = benchmark1(p,num_iter);
     printf("p =  %1.2f \tTime: %.3e \n",p,t_avg);
   }
