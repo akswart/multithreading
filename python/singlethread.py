@@ -22,6 +22,16 @@ def is_prime(test_num):
             return False
     return True
 
+# Simplest possible Sieve of Eratosthenes
+def is_prime_simple(test_num):
+    # Tests if k is prime
+    if test_num == 2:
+        return True
+    for test_div in range(2,math.ceil(np.sqrt(test_num))+1):
+        if test_num % test_div == 0:
+            return False
+    return True
+
 def prime_list(my_list):
     return [p for p in my_list if is_prime(p)]
 
