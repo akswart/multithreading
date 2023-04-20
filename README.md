@@ -11,7 +11,11 @@ Base results with no opt:
 All run with end_power = 8
 
 sndd-paar: 735.8
+
 bigiron: 177.8
+
 ironborn: 164.24
+
 laptop: 1263.2
+
 desktop: 103.17
