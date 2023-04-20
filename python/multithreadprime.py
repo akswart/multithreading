@@ -75,9 +75,9 @@ def multiprime(end_power,num_iter,stripe_power,debug = False):
 if __name__ == "__main__":    
 
    # Default Values
-    end_power = 1.0
-    num_iter = 5
-    stripe_power = 2
+    end_power = 8
+    num_iter = 10
+    stripe_power = 4
     
     if len(sys.argv) == 2:
         end_power = float(sys.argv[1])
