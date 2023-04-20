@@ -19,3 +19,5 @@ ironborn: 164.24
 laptop: 1263.2
 
 desktop: 103.17
+
+truchas-master: 34.47
